@@ -1,43 +1,50 @@
-class SourcesResponse {
-  SourcesResponse({this.status, this.sources, this.code, this.message});
+import 'package:json_annotation/json_annotation.dart';
 
-  SourcesResponse.fromJson(dynamic json) {
-    status = json['status'];
-    code = json['code'];
-    message = json['message'];
-    if (json['sources'] != null) {
-      sources = [];
-      json['sources'].forEach((v) {
-        sources?.add(Source.fromJson(v));
-      });
-    }
+part 'sources_response.g.dart';
+
+@JsonSerializable()
+class SourcesResponse {
+  @JsonKey(name: "status")
+  final String? status;
+
+  @JsonKey(name: "message")
+  final String? message;
+  @JsonKey(name: "sources")
+  final List<Sources>? sources;
+
+  const SourcesResponse ({
+    this.status,
+    this.sources,
+    this.message
+  });
+
+  factory SourcesResponse.fromJson(Map<String, dynamic> json) {
+    return _$SourcesResponseFromJson(json);
   }
 
-  String? status;
-  String? code;
-  String? message;
-  List<Source>? sources;
-
-  SourcesResponse copyWith({String? status, List<Source>? sources}) =>
-      SourcesResponse(
-        status: status ?? this.status,
-        sources: sources ?? this.sources,
-      );
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    map['code'] = code;
-    map['message'] = message;
-    if (sources != null) {
-      map['sources'] = sources?.map((v) => v.toJson()).toList();
-    }
-    return map;
+    return _$SourcesResponseToJson(this);
   }
 }
 
-class Source {
-  Source({
+@JsonSerializable()
+class Sources {
+  @JsonKey(name: "id")
+  final String? id;
+  @JsonKey(name: "name")
+  final String? name;
+  @JsonKey(name: "description")
+  final String? description;
+  @JsonKey(name: "url")
+  final String? url;
+  @JsonKey(name: "category")
+  final String? category;
+  @JsonKey(name: "language")
+  final String? language;
+  @JsonKey(name: "country")
+  final String? country;
+
+  Sources ({
     this.id,
     this.name,
     this.description,
@@ -47,51 +54,13 @@ class Source {
     this.country,
   });
 
-  Source.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    description = json['description'];
-    url = json['url'];
-    category = json['category'];
-    language = json['language'];
-    country = json['country'];
+  factory Sources.fromJson(Map<String, dynamic> json) {
+    return _$SourcesFromJson(json);
   }
-
-  String? id;
-  String? name;
-  String? description;
-  String? url;
-  String? category;
-  String? language;
-  String? country;
-
-  Source copyWith({
-    String? id,
-    String? name,
-    String? description,
-    String? url,
-    String? category,
-    String? language,
-    String? country,
-  }) => Source(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    description: description ?? this.description,
-    url: url ?? this.url,
-    category: category ?? this.category,
-    language: language ?? this.language,
-    country: country ?? this.country,
-  );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['description'] = description;
-    map['url'] = url;
-    map['category'] = category;
-    map['language'] = language;
-    map['country'] = country;
-    return map;
+    return _$SourcesToJson(this);
   }
 }
+
+

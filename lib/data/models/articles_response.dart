@@ -1,137 +1,89 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'articles_response.g.dart';
+
+@JsonSerializable()
 class ArticlesResponse {
-  ArticlesResponse({
-      this.status, 
-      this.code, 
-      this.message, 
-      this.totalResults, 
-      this.articles,});
+  @JsonKey(name: "status")
+  final String? status;
+  @JsonKey(name: "totalResults")
+  final int? totalResults;
+  @JsonKey(name: "articles")
+  final List<Articles>? articles;
 
-  ArticlesResponse.fromJson(dynamic json) {
-    status = json['status'];
-    code = json['code'];
-    message = json['message'];
-    totalResults = json['totalResults'];
-    if (json['articles'] != null) {
-      articles = [];
-      json['articles'].forEach((v) {
-        articles?.add(Articles.fromJson(v));
-      });
-    }
+  ArticlesResponse ({
+    this.status,
+    this.totalResults,
+    this.articles,
+  });
+
+  factory ArticlesResponse.fromJson(Map<String, dynamic> json) {
+    return _$ArticlesResponseFromJson(json);
   }
-  String? status;
-  String? code;
-  String? message;
-  num? totalResults;
-  List<Articles>? articles;
-ArticlesResponse copyWith({  String? status,
-  String? code,
-  String? message,
-  num? totalResults,
-  List<Articles>? articles,
-}) => ArticlesResponse(  status: status ?? this.status,
-  code: code ?? this.code,
-  message: message ?? this.message,
-  totalResults: totalResults ?? this.totalResults,
-  articles: articles ?? this.articles,
-);
+
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    map['code'] = code;
-    map['message'] = message;
-    map['totalResults'] = totalResults;
-    if (articles != null) {
-      map['articles'] = articles?.map((v) => v.toJson()).toList();
-    }
-    return map;
+    return _$ArticlesResponseToJson(this);
   }
-
 }
 
+@JsonSerializable()
 class Articles {
-  Articles({
-      this.source, 
-      this.author, 
-      this.title, 
-      this.description, 
-      this.url, 
-      this.urlToImage, 
-      this.publishedAt, 
-      this.content,});
+  @JsonKey(name: "source")
+  final Source? source;
+  @JsonKey(name: "author")
+  final String? author;
+  @JsonKey(name: "title")
+  final String? title;
+  @JsonKey(name: "description")
+  final String? description;
+  @JsonKey(name: "url")
+  final String? url;
+  @JsonKey(name: "urlToImage")
+  final String? urlToImage;
+  @JsonKey(name: "publishedAt")
+  final String? publishedAt;
+  @JsonKey(name: "content")
+  final String? content;
 
-  Articles.fromJson(dynamic json) {
-    source = json['source'] != null ? Source.fromJson(json['source']) : null;
-    author = json['author'];
-    title = json['title'];
-    description = json['description'];
-    url = json['url'];
-    urlToImage = json['urlToImage'];
-    publishedAt = json['publishedAt'];
-    content = json['content'];
+  Articles ({
+    this.source,
+    this.author,
+    this.title,
+    this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
+    this.content,
+  });
+
+  factory Articles.fromJson(Map<String, dynamic> json) {
+    return _$ArticlesFromJson(json);
   }
-  Source? source;
-  String? author;
-  String? title;
-  String? description;
-  String? url;
-  String? urlToImage;
-  String? publishedAt;
-  String? content;
-Articles copyWith({  Source? source,
-  String? author,
-  String? title,
-  String? description,
-  String? url,
-  String? urlToImage,
-  String? publishedAt,
-  String? content,
-}) => Articles(  source: source ?? this.source,
-  author: author ?? this.author,
-  title: title ?? this.title,
-  description: description ?? this.description,
-  url: url ?? this.url,
-  urlToImage: urlToImage ?? this.urlToImage,
-  publishedAt: publishedAt ?? this.publishedAt,
-  content: content ?? this.content,
-);
+
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (source != null) {
-      map['source'] = source?.toJson();
-    }
-    map['author'] = author;
-    map['title'] = title;
-    map['description'] = description;
-    map['url'] = url;
-    map['urlToImage'] = urlToImage;
-    map['publishedAt'] = publishedAt;
-    map['content'] = content;
-    return map;
+    return _$ArticlesToJson(this);
   }
-
 }
 
+@JsonSerializable()
 class Source {
-  Source({
-      this.id, 
-      this.name,});
+  @JsonKey(name: "id")
+  final String? id;
+  @JsonKey(name: "name")
+  final String? name;
 
-  Source.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
+  Source ({
+    this.id,
+    this.name,
+  });
+
+  factory Source.fromJson(Map<String, dynamic> json) {
+    return _$SourceFromJson(json);
   }
-  String? id;
-  String? name;
-Source copyWith({  String? id,
-  String? name,
-}) => Source(  id: id ?? this.id,
-  name: name ?? this.name,
-);
+
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    return map;
+    return _$SourceToJson(this);
   }
-
 }
+
+
