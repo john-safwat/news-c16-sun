@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_c16_sun/core/theme/app_colors.dart';
+import 'package:news_c16_sun/data/api/api_client.dart';
 import 'package:news_c16_sun/data/api/api_manager.dart';
 import 'package:news_c16_sun/data/models/articles_response.dart';
 import 'package:news_c16_sun/data/models/category_dm.dart';
@@ -25,7 +26,7 @@ class _NewsPageState extends State<NewsPage> {
     return Column(
       children: [
         FutureBuilder<SourcesResponse?>(
-          future: ApiManager().getSource(widget.categoryDm.id),
+          future: ApiClient.instance.getSources(widget.categoryDm.id),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return LinearProgressIndicator();
@@ -94,7 +95,7 @@ class _NewsPageState extends State<NewsPage> {
 
   Future<void> getArticles(String source) async {
     try {
-      articlesResponse = await ApiManager().getArticles(source);
+      articlesResponse = await  ApiClient.instance.getArticles(source);
     } catch (e) {
       errorMessage = e.toString();
     } finally {
