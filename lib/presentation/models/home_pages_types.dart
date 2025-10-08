@@ -1,0 +1,1 @@
+enum HomePagesTypes { categories, news }

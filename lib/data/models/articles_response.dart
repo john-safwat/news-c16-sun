@@ -6,6 +6,9 @@ part 'articles_response.g.dart';
 class ArticlesResponse {
   @JsonKey(name: "status")
   final String? status;
+
+  @JsonKey(name: "message")
+  final String? message;
   @JsonKey(name: "totalResults")
   final int? totalResults;
   @JsonKey(name: "articles")
@@ -15,6 +18,7 @@ class ArticlesResponse {
     this.status,
     this.totalResults,
     this.articles,
+    this.message
   });
 
   factory ArticlesResponse.fromJson(Map<String, dynamic> json) {

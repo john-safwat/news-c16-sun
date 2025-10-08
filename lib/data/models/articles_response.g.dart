@@ -14,11 +14,13 @@ ArticlesResponse _$ArticlesResponseFromJson(Map<String, dynamic> json) =>
           (json['articles'] as List<dynamic>?)
               ?.map((e) => Articles.fromJson(e as Map<String, dynamic>))
               .toList(),
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$ArticlesResponseToJson(ArticlesResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
+      'message': instance.message,
       'totalResults': instance.totalResults,
       'articles': instance.articles,
     };

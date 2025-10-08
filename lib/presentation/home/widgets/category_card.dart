@@ -6,7 +6,7 @@ class CategoryCard extends StatelessWidget {
   final int index;
 
   final CategoryDm category;
-  final Function(int index, CategoryDm category) onCardClick;
+  final Function() onCardClick;
 
   const CategoryCard({
     required this.category,
@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
     var even = index % 2 == 0;
     return InkWell(
       onTap: () {
-        onCardClick(index, category);
+        onCardClick();
       },
       child: AspectRatio(
         aspectRatio: 2381 / 1299,

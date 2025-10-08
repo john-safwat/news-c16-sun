@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_c16_sun/ui/home/home_screen.dart';
+import 'package:news_c16_sun/presentation/home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/splash';
