@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:news_c16_sun/core/di/di.dart';
 import 'package:news_c16_sun/core/theme/app_theme.dart';
+import 'package:news_c16_sun/data/local_data_base/moedels/source_local_dm.dart';
 import 'package:news_c16_sun/presentation/home/home_screen.dart';
 import 'package:news_c16_sun/presentation/search/search_view.dart';
 import 'package:news_c16_sun/presentation/splash/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await Hive.initFlutter();
+  // Register Hive Adapters (for custom types)??
+  Hive.registerAdapter(SourceLocalDmAdapter());
+  // setup();
+  configureDependencies();
   runApp(MyApp());
 }
 

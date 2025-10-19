@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_c16_sun/core/base/base_view.dart';
+import 'package:news_c16_sun/core/di/di.dart';
+import 'package:news_c16_sun/core/di/service_locator.dart';
 import 'package:news_c16_sun/data/models/category_dm.dart';
 import 'package:news_c16_sun/presentation/home/widgets/article_card.dart';
 import 'package:news_c16_sun/presentation/news/news_view_model.dart';
@@ -13,8 +16,8 @@ class NewsPage extends StatefulWidget {
   State<NewsPage> createState() => _NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
-  NewsViewModel viewModel = NewsViewModel();
+class _NewsPageState extends BaseView<NewsPage , NewsViewModel> {
+
 
   @override
   void initState() {
@@ -51,7 +54,7 @@ class _NewsPageState extends State<NewsPage> {
                             .map(
                               (e) => Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(e.name ?? ""),
+                                child: Text(e.name),
                               ),
                             )
                             .toList(),
@@ -86,5 +89,10 @@ class _NewsPageState extends State<NewsPage> {
         ],
       ),
     );
+  }
+
+  @override
+  NewsViewModel createViewModel() {
+    return getIt<NewsViewModel>();
   }
 }

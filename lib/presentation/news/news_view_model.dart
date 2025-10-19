@@ -1,28 +1,29 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:news_c16_sun/data/api/api_client.dart';
-import 'package:news_c16_sun/data/models/articles_response.dart';
+import 'package:injectable/injectable.dart';
+import 'package:news_c16_sun/core/base/base_view_model.dart';
 import 'package:news_c16_sun/data/models/category_dm.dart';
-import 'package:news_c16_sun/data/models/sources_response.dart';
+import 'package:news_c16_sun/domain/entity/article_entity.dart';
+import 'package:news_c16_sun/domain/entity/source_entity.dart';
+import 'package:news_c16_sun/domain/use_case/get_articles_by_source_use_case.dart';
+import 'package:news_c16_sun/domain/use_case/get_sources_use_case.dart';
 
-class NewsViewModel extends ChangeNotifier {
-  ApiClient apiClient = ApiClient.instance;
+@injectable
+class NewsViewModel extends BaseViewModel {
+  GetSourcesUseCase getSourcesUseCase;
+  GetArticlesBySourceUseCase getArticlesBySourceUseCase;
 
-  List<Sources> sources = [];
+  NewsViewModel(this.getSourcesUseCase, this.getArticlesBySourceUseCase);
+
+  List<SourceEntity> sources = [];
   bool sourcesLoading = false;
   int selectedIndex = 0;
   String? errorMessage;
 
   Future<void> loadSources(CategoryDm category) async {
     try {
-      var response = await apiClient.getSources(category.id);
-      if (response.message != null) {
-        errorMessage = response.message;
-      } else {
-        sources = response.sources ?? [];
-        if (sources.isNotEmpty) {
-          getArticles(sources.first);
-        }
+      var response = await getSourcesUseCase(category.id);
+      if (response.isNotEmpty) {
+        sources = response;
+        getArticles(response[0]);
       }
     } catch (e) {
       errorMessage = e.toString();
@@ -31,19 +32,17 @@ class NewsViewModel extends ChangeNotifier {
     }
   }
 
-  List<Articles> articles = [];
+  List<ArticleEntity> articles = [];
   String? articlesErrorMessage;
   bool articlesLoading = false;
 
-  Future<void> getArticles(Sources source) async {
+  Future<void> getArticles(SourceEntity source) async {
     articlesLoading = true;
     notifyListeners();
     try {
-      var articlesResponse = await apiClient.getArticles(source.id ?? "");
-      if (articlesResponse.message != null) {
-        errorMessage = articlesResponse.message;
-      } else {
-        articles = articlesResponse.articles ?? [];
+      var articlesResponse = await getArticlesBySourceUseCase(source.id);
+      if (articlesResponse.isNotEmpty) {
+        articles = articlesResponse;
       }
     } catch (e) {
       errorMessage = e.toString();
