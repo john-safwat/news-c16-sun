@@ -12,7 +12,7 @@ ArticlesResponse _$ArticlesResponseFromJson(Map<String, dynamic> json) =>
       totalResults: (json['totalResults'] as num?)?.toInt(),
       articles:
           (json['articles'] as List<dynamic>?)
-              ?.map((e) => Articles.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ArticleDTO.fromJson(e as Map<String, dynamic>))
               .toList(),
       message: json['message'] as String?,
     );
@@ -25,7 +25,7 @@ Map<String, dynamic> _$ArticlesResponseToJson(ArticlesResponse instance) =>
       'articles': instance.articles,
     };
 
-Articles _$ArticlesFromJson(Map<String, dynamic> json) => Articles(
+ArticleDTO _$ArticlesFromJson(Map<String, dynamic> json) => ArticleDTO(
   source:
       json['source'] == null
           ? null
@@ -39,7 +39,7 @@ Articles _$ArticlesFromJson(Map<String, dynamic> json) => Articles(
   content: json['content'] as String?,
 );
 
-Map<String, dynamic> _$ArticlesToJson(Articles instance) => <String, dynamic>{
+Map<String, dynamic> _$ArticlesToJson(ArticleDTO instance) => <String, dynamic>{
   'source': instance.source,
   'author': instance.author,
   'title': instance.title,

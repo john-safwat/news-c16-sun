@@ -12,7 +12,7 @@ class ArticlesResponse {
   @JsonKey(name: "totalResults")
   final int? totalResults;
   @JsonKey(name: "articles")
-  final List<Articles>? articles;
+  final List<ArticleDTO>? articles;
 
   ArticlesResponse ({
     this.status,
@@ -31,7 +31,7 @@ class ArticlesResponse {
 }
 
 @JsonSerializable()
-class Articles {
+class ArticleDTO {
   @JsonKey(name: "source")
   final Source? source;
   @JsonKey(name: "author")
@@ -49,7 +49,7 @@ class Articles {
   @JsonKey(name: "content")
   final String? content;
 
-  Articles ({
+  ArticleDTO ({
     this.source,
     this.author,
     this.title,
@@ -60,7 +60,7 @@ class Articles {
     this.content,
   });
 
-  factory Articles.fromJson(Map<String, dynamic> json) {
+  factory ArticleDTO.fromJson(Map<String, dynamic> json) {
     return _$ArticlesFromJson(json);
   }
 

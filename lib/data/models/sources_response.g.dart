@@ -11,7 +11,7 @@ SourcesResponse _$SourcesResponseFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String?,
       sources:
           (json['sources'] as List<dynamic>?)
-              ?.map((e) => Sources.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => SourceDTO.fromJson(e as Map<String, dynamic>))
               .toList(),
       message: json['message'] as String?,
     );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$SourcesResponseToJson(SourcesResponse instance) =>
       'sources': instance.sources,
     };
 
-Sources _$SourcesFromJson(Map<String, dynamic> json) => Sources(
+SourceDTO _$SourcesFromJson(Map<String, dynamic> json) => SourceDTO(
   id: json['id'] as String?,
   name: json['name'] as String?,
   description: json['description'] as String?,
@@ -33,7 +33,7 @@ Sources _$SourcesFromJson(Map<String, dynamic> json) => Sources(
   country: json['country'] as String?,
 );
 
-Map<String, dynamic> _$SourcesToJson(Sources instance) => <String, dynamic>{
+Map<String, dynamic> _$SourcesToJson(SourceDTO instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': instance.description,

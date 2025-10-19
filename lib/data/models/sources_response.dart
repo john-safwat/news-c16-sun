@@ -10,7 +10,7 @@ class SourcesResponse {
   @JsonKey(name: "message")
   final String? message;
   @JsonKey(name: "sources")
-  final List<Sources>? sources;
+  final List<SourceDTO>? sources;
 
   const SourcesResponse ({
     this.status,
@@ -28,7 +28,7 @@ class SourcesResponse {
 }
 
 @JsonSerializable()
-class Sources {
+class SourceDTO {
   @JsonKey(name: "id")
   final String? id;
   @JsonKey(name: "name")
@@ -44,7 +44,7 @@ class Sources {
   @JsonKey(name: "country")
   final String? country;
 
-  Sources ({
+  SourceDTO ({
     this.id,
     this.name,
     this.description,
@@ -54,7 +54,7 @@ class Sources {
     this.country,
   });
 
-  factory Sources.fromJson(Map<String, dynamic> json) {
+  factory SourceDTO.fromJson(Map<String, dynamic> json) {
     return _$SourcesFromJson(json);
   }
 

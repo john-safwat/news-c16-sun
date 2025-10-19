@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_c16_sun/data/models/articles_response.dart';
+import 'package:news_c16_sun/domain/entity/article_entity.dart';
 
 class ArticleCard extends StatelessWidget {
-  final Articles articles;
+  final ArticleEntity articles;
 
   const ArticleCard({required this.articles, super.key});
 
@@ -25,7 +25,7 @@ class ArticleCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: CachedNetworkImage(
-                imageUrl: articles.urlToImage ?? "",
+                imageUrl: articles.imageUrl ?? "",
                 placeholder:
                     (_, _) => Center(child: CircularProgressIndicator()),
                 errorWidget: (_, __, ___) => Icon(Icons.image),
