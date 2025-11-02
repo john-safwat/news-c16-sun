@@ -1,4 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:news_c16_sun/core/base/app_exceptions.dart';
+import 'package:news_c16_sun/core/base/results.dart';
+import 'package:news_c16_sun/core/base/safe_call.dart';
 import 'package:news_c16_sun/data/api/api_client.dart';
 import 'package:news_c16_sun/data/data_source/articles/articles_remote_datasource.dart';
 import 'package:news_c16_sun/data/models/articles_response.dart';
@@ -10,12 +13,13 @@ class ArticlesRemoteDatasourceImpl implements ArticlesRemoteDatasource {
   ArticlesRemoteDatasourceImpl(this.apiClient);
 
   @override
-  Future<List<Articles>> getArticles(String sourceId) async {
-    try {
+  Future<Results<List<Articles>>> getArticles(String sourceId) async {
+    return safeCall(() async {
       var response = await apiClient.getArticles(sourceId);
-      return response.articles ?? [];
-    } catch (e) {
-      rethrow;
-    }
+      if (response.status == "fail") {
+        return Failure("Api Fail", ArticlesNotFoundException());
+      }
+      return Success(response.articles ?? []);
+    });
   }
 }

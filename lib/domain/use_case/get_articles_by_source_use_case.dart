@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:news_c16_sun/core/base/results.dart';
 import 'package:news_c16_sun/domain/entity/article_entity.dart';
 import 'package:news_c16_sun/domain/repository/news_repo.dart';
 
@@ -8,6 +9,6 @@ class GetArticlesBySourceUseCase {
 
   GetArticlesBySourceUseCase(this.repo);
 
-  Future<List<ArticleEntity>> call(String sourceId) =>
+  Future<Results<List<ArticleEntity>>> call(String sourceId) =>
       repo.getArticles(sourceId);
 }

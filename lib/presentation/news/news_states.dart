@@ -1,43 +1,30 @@
+import 'package:news_c16_sun/core/base/results.dart';
 import 'package:news_c16_sun/data/models/category_dm.dart';
 import 'package:news_c16_sun/domain/entity/article_entity.dart';
 import 'package:news_c16_sun/domain/entity/source_entity.dart';
 
 class NewsStates {
-  List<SourceEntity>? sources = [];
-  bool? sourcesLoading = false;
-  int? selectedIndex = 0;
-  String? errorMessage;
-  List<ArticleEntity>? articles;
-  String? articlesErrorMessage;
-  bool? articlesLoading = false;
+  late Results<List<SourceEntity>>? sourcesResults;
 
-  NewsStates(
-    this.sources,
-    this.sourcesLoading,
-    this.selectedIndex,
-    this.errorMessage,
-    this.articles,
-    this.articlesErrorMessage,
-    this.articlesLoading,
-  );
+  late Results<List<ArticleEntity>>? articlesResults;
+
+  int selectedIndex;
+
+  NewsStates({
+    this.sourcesResults,
+    this.articlesResults,
+    this.selectedIndex = 0,
+  });
 
   NewsStates copyWith({
-    List<SourceEntity>? sources,
-    bool? sourcesLoading,
+    Results<List<SourceEntity>>? sourcesResults,
+    Results<List<ArticleEntity>>? articlesResults,
     int? selectedIndex,
-    String? errorMessage,
-    List<ArticleEntity>? articles,
-    String? articlesErrorMessage,
-    bool? articlesLoading,
   }) {
     return NewsStates(
-      sources ?? this.sources,
-      sourcesLoading ?? this.sourcesLoading,
-      selectedIndex ?? this.selectedIndex,
-      errorMessage ?? this.errorMessage,
-      articles ?? this.articles,
-      articlesErrorMessage ?? this.articlesErrorMessage,
-      articlesLoading ?? this.articlesLoading,
+      sourcesResults: sourcesResults ?? this.sourcesResults,
+      articlesResults: articlesResults ?? this.articlesResults,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
     );
   }
 }
